@@ -37,11 +37,18 @@ namespace MiniBook.Identity
                 .AddDefaultTokenProviders();
 
             services.Configure<IdentityOptions>(options => {
-                options.Password.RequiredLength = 6;                
+                options.Password.RequiredLength = 6;
+                options.Password.RequireDigit = false;                
+                options.Password.RequireLowercase = false;
+                options.Password.RequireNonAlphanumeric = false;
+                options.Password.RequireUppercase = false;
             });
 
 
-            services.AddMvc();
+            services.AddMvc().AddJsonOptions(options => {
+                options.SerializerSettings.NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore;
+                options.SerializerSettings.Formatting = Newtonsoft.Json.Formatting.Indented;
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

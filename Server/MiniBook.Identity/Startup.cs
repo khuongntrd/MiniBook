@@ -1,17 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Builder;
+﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Localization;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
 using MiniBook.Identity.Data;
 using MiniBook.Identity.Models;
+using System.Collections.Generic;
+using System.Globalization;
 
 namespace MiniBook.Identity
 {
@@ -36,16 +33,17 @@ namespace MiniBook.Identity
                 .AddEntityFrameworkStores<MinibookDbContext>()
                 .AddDefaultTokenProviders();
 
-            services.Configure<IdentityOptions>(options => {
+            services.Configure<IdentityOptions>(options =>
+            {
                 options.Password.RequiredLength = 6;
-                options.Password.RequireDigit = false;                
+                options.Password.RequireDigit = false;
                 options.Password.RequireLowercase = false;
                 options.Password.RequireNonAlphanumeric = false;
                 options.Password.RequireUppercase = false;
             });
 
-
-            services.AddMvc().AddJsonOptions(options => {
+            services.AddMvc().AddJsonOptions(options =>
+            {
                 options.SerializerSettings.NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore;
                 options.SerializerSettings.Formatting = Newtonsoft.Json.Formatting.Indented;
             });
@@ -58,6 +56,17 @@ namespace MiniBook.Identity
             {
                 app.UseDeveloperExceptionPage();
             }
+
+            app.UseRequestLocalization(new RequestLocalizationOptions()
+            {
+                DefaultRequestCulture = new RequestCulture("en"),
+                SupportedCultures = new[] { new CultureInfo("en"), new CultureInfo("vi") },
+                SupportedUICultures = new[] { new CultureInfo("en"), new CultureInfo("vi") },
+                RequestCultureProviders = new IRequestCultureProvider[] {
+                    new QueryStringRequestCultureProvider(),
+                    new AcceptLanguageHeaderRequestCultureProvider()
+                },
+            });
 
             app.UseMvc();
         }

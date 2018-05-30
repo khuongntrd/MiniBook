@@ -1,14 +1,33 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using MiniBook.Strings;
 using System.Net;
 
 namespace MiniBook
 {
     public static class ApiResultExtensions
     {
+        
+        public static IActionResult ErrorResult(this Controller controller, ErrorCode errorCode, HttpStatusCode statusCode)
+        {
+            return JsonResult(new ApiResponse<object>(
+                (int)errorCode,
+                ErrorResources.ResourceManager.GetString(errorCode.ToString())),
+               statusCode);
+        }
+
+        public static IActionResult ErrorResult(this Controller controller, ErrorCode errorCode)
+        {
+            return JsonResult(new ApiResponse<object>(
+                (int)errorCode, 
+                ErrorResources.ResourceManager.GetString(errorCode.ToString())),
+                HttpStatusCode.BadRequest);
+        }
+
         public static IActionResult ErrorResult(this Controller controller, int errorCode, string errorMessage, HttpStatusCode statusCode)
         {
             return JsonResult(new ApiResponse<object>(errorCode, errorMessage), statusCode);
         }
+
 
         public static IActionResult ErrorResult(this Controller controller, int errorCode, string errorMessage)
         {

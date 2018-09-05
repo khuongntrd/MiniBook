@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Localization;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using MiniBook.Identity.Configuration;
 using MiniBook.Identity.Data;
 using MiniBook.Identity.Models;
 using System.Collections.Generic;
@@ -47,6 +48,14 @@ namespace MiniBook.Identity
                 options.SerializerSettings.NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore;
                 options.SerializerSettings.Formatting = Newtonsoft.Json.Formatting.Indented;
             });
+
+            services.AddIdentityServer()
+                .AddDeveloperSigningCredential()
+                .AddInMemoryPersistedGrants()
+                .AddInMemoryIdentityResources(Config.GetIdentityResources())
+                .AddInMemoryApiResources(Config.GetApiResources())
+                .AddInMemoryClients(Config.GetClients())
+                .AddAspNetIdentity<User>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -67,6 +76,8 @@ namespace MiniBook.Identity
                     new AcceptLanguageHeaderRequestCultureProvider()
                 },
             });
+
+            app.UseIdentityServer();
 
             app.UseMvc();
         }

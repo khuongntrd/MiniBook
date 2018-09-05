@@ -10,8 +10,10 @@ namespace MiniBook.App
 		public App ()
 		{
 			InitializeComponent();
-
-			MainPage = new MainPage();
+#if DEBUG
+            LiveReload.Init();
+#endif
+            MainPage = new MainPage();
 		}
 
 		protected override void OnStart ()

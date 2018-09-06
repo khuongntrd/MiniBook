@@ -68,5 +68,32 @@ namespace MiniBook.Strings {
                 return ResourceManager.GetString("REGISTER_DUPLICATE_USER_NAME", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You must enter valid email address to register.
+        /// </summary>
+        public static string REGISTER_REQUIRED_EMAIL {
+            get {
+                return ResourceManager.GetString("REGISTER_REQUIRED_EMAIL", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You must enter your firstname.
+        /// </summary>
+        public static string REGISTER_REQUIRED_FIRST_NAME {
+            get {
+                return ResourceManager.GetString("REGISTER_REQUIRED_FIRST_NAME", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You must enter your lastname.
+        /// </summary>
+        public static string REGISTER_REQUIRED_LAST_NAME {
+            get {
+                return ResourceManager.GetString("REGISTER_REQUIRED_LAST_NAME", resourceCulture);
+            }
+        }
     }
 }

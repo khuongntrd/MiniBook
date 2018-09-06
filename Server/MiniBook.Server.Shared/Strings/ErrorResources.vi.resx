@@ -118,6 +118,15 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="REGISTER_DUPLICATE_USER_NAME" xml:space="preserve">
-    <value>Email da duoc su dung</value>
+    <value>Email đã được sử dụng</value>
+  </data>
+  <data name="REGISTER_REQUIRED_EMAIL" xml:space="preserve">
+    <value>Bạn phải nhập email để đăng ký tài khoản</value>
+  </data>
+  <data name="REGISTER_REQUIRED_FIRST_NAME" xml:space="preserve">
+    <value>Bạn phải nhập tên để đăng ký tài khoản</value>
+  </data>
+  <data name="REGISTER_REQUIRED_LAST_NAME" xml:space="preserve">
+    <value>Bạn phải nhập họ để đăng ký tài khoản</value>
   </data>
 </root>

@@ -20,7 +20,17 @@ namespace MiniBook.Identity.Data
         {
             base.OnModelCreating(modelBuilder);
 
-            modelBuilder.Entity<User>().ToTable("Users").Property(p => p.Id).HasColumnName("UserId");
+            modelBuilder.Entity<User>(users =>
+            {
+                users.HasMany(x => x.Claims)
+                    .WithOne()
+                    .HasForeignKey(x => x.UserId)
+                    .IsRequired()
+                    .OnDelete(DeleteBehavior.Cascade);
+
+                users.ToTable("Users").Property(p => p.Id).HasColumnName("UserId");
+            });
+
             modelBuilder.Entity<IdentityUserRole<string>>().ToTable("UserRoles");
             modelBuilder.Entity<IdentityUserLogin<string>>().ToTable("UserLogins");
             modelBuilder.Entity<IdentityUserClaim<string>>().ToTable("UserClaims");

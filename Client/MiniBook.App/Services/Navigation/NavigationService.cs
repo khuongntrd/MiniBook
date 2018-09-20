@@ -56,7 +56,7 @@ namespace MiniBook.Services.Navigation
                 if (navigationPage.Navigation.NavigationStack.LastOrDefault() is Page view)
                     if (view.BindingContext is ViewModelBase vm)
                     {
-                        await vm.OnNavigationAsync(new NavigationParameters(), NavigationType.Back);
+                        await vm.OnNavigationAsync(parameters, NavigationType.Back);
                     }
             }
         }

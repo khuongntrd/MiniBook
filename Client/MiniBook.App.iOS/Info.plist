@@ -34,5 +34,7 @@
 	<string>MiniBook.App</string>
 	<key>XSAppIconAssets</key>
 	<string>Assets.xcassets/AppIcon.appiconset</string>
+  <key>NSCalendarsUsageDescription</key>
+  <string>Needs Calendar Permission</string>
 </dict>
 </plist>

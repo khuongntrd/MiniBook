@@ -8,7 +8,7 @@ using Android.Widget;
 using Android.OS;
 using Plugin.Permissions;
 
-namespace MiniBook.App.Droid
+namespace MiniBook.Droid
 {
     [Activity(Label = "MiniBook.App", Icon = "@mipmap/icon", Theme = "@style/MainTheme", MainLauncher = true, ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation)]
     public class MainActivity : global::Xamarin.Forms.Platform.Android.FormsAppCompatActivity

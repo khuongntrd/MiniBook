@@ -3,17 +3,17 @@ using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
 [assembly: XamlCompilation (XamlCompilationOptions.Compile)]
-namespace MiniBook.App
+namespace MiniBook
 {
 	public partial class App : Application
 	{
 		public App ()
 		{
 			InitializeComponent();
+
 #if DEBUG
             LiveReload.Init();
 #endif
-            MainPage = new MainPage();
 		}
 
 		protected override void OnStart ()

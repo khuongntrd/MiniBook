@@ -11,7 +11,7 @@
 
 [assembly: global::Android.Runtime.ResourceDesignerAttribute("MiniBook.App.Droid.Resource", IsApplication=true)]
 
-namespace MiniBook.App.Droid
+namespace MiniBook.Droid
 {
 	
 	

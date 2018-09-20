@@ -1,7 +1,7 @@
 ﻿using System.Net.Http;
 using System.Threading.Tasks;
 
-namespace MiniBook.App.Services
+namespace MiniBook.Services
 {
     public class HttpService
     {

@@ -4,7 +4,7 @@ using System.Text;
 
 namespace MiniBook.ViewModels
 {
-    class DashboardViewModel : ViewModelBase
+    public class DashboardViewModel : ViewModelBase
     {
     }
 }

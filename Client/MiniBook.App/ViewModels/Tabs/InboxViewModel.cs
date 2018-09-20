@@ -4,7 +4,7 @@ using System.Text;
 
 namespace MiniBook.ViewModels.Tabs
 {
-    class InboxViewModel : ViewModelBase
+    public class InboxViewModel : ViewModelBase
     {
     }
 }

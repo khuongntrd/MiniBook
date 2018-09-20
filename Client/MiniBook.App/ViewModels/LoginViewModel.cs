@@ -4,7 +4,7 @@ using System.Text;
 
 namespace MiniBook.ViewModels
 {
-    class LoginViewModel : ViewModelBase
+    public class LoginViewModel : ViewModelBase
     {
     }
 }

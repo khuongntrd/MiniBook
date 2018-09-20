@@ -59,5 +59,13 @@ namespace MiniBook
             _containerBuilder.RegisterType<T>()
                 .InstancePerLifetimeScope();
         }
+
+        public void RegisterViewModels()
+        {
+            _containerBuilder.RegisterAssemblyTypes(GetType().Assembly)
+                .Where(type => type.Name.EndsWith("ViewModel"))
+                .AsSelf()
+                .InstancePerDependency();
+        }
     }
 }

@@ -25,6 +25,7 @@ namespace MiniBook
                 return;
 
             // Register dependencies
+            ServiceLocator.Instance.RegisterViewModels();
 
             ServiceLocator.Instance.Build();
         }

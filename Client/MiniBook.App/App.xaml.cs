@@ -14,9 +14,22 @@ namespace MiniBook
 #if DEBUG
             LiveReload.Init();
 #endif
-		}
 
-		protected override void OnStart ()
+            BuildDependencies();
+
+        }
+
+        private void BuildDependencies()
+        {
+            if (ServiceLocator.Instance.Built)
+                return;
+
+            // Register dependencies
+
+            ServiceLocator.Instance.Build();
+        }
+
+        protected override void OnStart ()
 		{
 			// Handle when your app starts
 		}

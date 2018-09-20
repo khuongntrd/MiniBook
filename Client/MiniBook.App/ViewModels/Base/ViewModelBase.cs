@@ -1,6 +1,8 @@
-﻿using System;
+﻿using MiniBook.Services.Navigation;
+using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace MiniBook.ViewModels
 {
@@ -8,6 +10,13 @@ namespace MiniBook.ViewModels
     {
         private string _title;
         private bool _isBusy;
+
+        protected INavigationService NavigationService { get; }
+
+        public ViewModelBase()
+        {
+            NavigationService = ServiceLocator.Instance.Resolve<INavigationService>();
+        }
 
         public string Title
         {
@@ -23,5 +32,10 @@ namespace MiniBook.ViewModels
         }
 
         public bool IsNotBusy => !IsBusy;
+
+        public virtual Task OnNavigationAsync(NavigationParameters parameters, NavigationType navigationType)
+        {
+            return Task.CompletedTask;
+        }
     }
 }

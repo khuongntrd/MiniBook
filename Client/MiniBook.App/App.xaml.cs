@@ -25,6 +25,8 @@ namespace MiniBook
                 return;
 
             // Register dependencies
+            ServiceLocator.Instance.RegisterInstance<Services.Navigation.INavigationService, Services.Navigation.NavigationService>();
+
             ServiceLocator.Instance.RegisterViewModels();
 
             ServiceLocator.Instance.Build();

@@ -1,10 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace MiniBook.ViewModels
+﻿namespace MiniBook.ViewModels
 {
     public class LoginViewModel : ViewModelBase
     {
+        public LoginViewModel()
+        {
+
+        }
+
+        private void GoToDashboard()
+        {
+            NavigationService.NavigateToAsync<DashboardViewModel>();
+        }
     }
 }

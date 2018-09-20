@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<TabbedPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+            xmlns:tabs="clr-namespace:MiniBook.Views.Tabs"
+            x:Class="MiniBook.Views.DashboardView">
+    <TabbedPage.Children>
+        <tabs:HomeView />
+        <tabs:NotificationsView />
+        <tabs:InboxView />
+        <tabs:MoreView />
+    </TabbedPage.Children>
+</TabbedPage>

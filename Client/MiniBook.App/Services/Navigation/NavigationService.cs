@@ -101,7 +101,7 @@ namespace MiniBook.Services.Navigation
             {
                 var viewType = Type.GetType(viewModelType.FullName.Replace("ViewModel", "View"));
 
-                if (viewType != null)
+                if (viewType == null)
                     throw new Exception($"Mapping type for {viewModelType} is not a page");
 
                 var view = Activator.CreateInstance(viewType) as Page;

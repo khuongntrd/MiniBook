@@ -107,7 +107,7 @@ namespace MiniBook.Services.Navigation
                 var view = Activator.CreateInstance(viewType) as Page;
 
                 if (view != null)
-                {
+                {                   
                     view.BindingContext = ServiceLocator.Instance.Resolve(viewModelType);
                 }
 

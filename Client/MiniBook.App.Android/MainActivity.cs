@@ -23,7 +23,7 @@ namespace MiniBook.Droid
             InitControls(bundle);
 
             global::Xamarin.Forms.Forms.Init(this, bundle);
-            LoadApplication(new App());
+            LoadApplication(new MiniBook.App());
         }
 
         private void InitControls(Bundle bundle)

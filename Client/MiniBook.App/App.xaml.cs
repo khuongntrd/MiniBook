@@ -17,6 +17,13 @@ namespace MiniBook
 
             BuildDependencies();
 
+            InitNavigation();
+        }
+
+        private void InitNavigation()
+        {
+            ServiceLocator.Instance.Resolve<Services.Navigation.INavigationService>()
+                .NavigateToAsync<ViewModels.LoginViewModel>();
         }
 
         private void BuildDependencies()

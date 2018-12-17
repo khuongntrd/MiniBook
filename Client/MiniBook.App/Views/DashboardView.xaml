@@ -2,7 +2,8 @@
 <TabbedPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
             xmlns:tabs="clr-namespace:MiniBook.Views.Tabs"
-            x:Class="MiniBook.Views.DashboardView">
+            x:Class="MiniBook.Views.DashboardView"
+            Title="{Binding Title}">
     <TabbedPage.Children>
         <tabs:HomeView />
         <tabs:NotificationsView />

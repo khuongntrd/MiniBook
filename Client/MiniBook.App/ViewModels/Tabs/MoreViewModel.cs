@@ -6,5 +6,9 @@ namespace MiniBook.ViewModels.Tabs
 {
     public class MoreViewModel:ViewModelBase
     {
+        public MoreViewModel()
+        {
+            Title = "More View";
+        }
     }
 }

@@ -8,6 +8,8 @@
             <Entry Placeholder="Username"/>
             <Entry Placeholder="Password"/>
             <Button Text="Login" Command="{Binding LoginCommand}"/>
+            <Button Text="Register"
+                    Command="{Binding RegisterCommand}" />
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

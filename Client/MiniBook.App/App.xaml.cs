@@ -33,6 +33,8 @@ namespace MiniBook
 
             // Register dependencies
             ServiceLocator.Instance.RegisterInstance<Services.Navigation.INavigationService, Services.Navigation.NavigationService>();
+            ServiceLocator.Instance.Register<Services.HttpService>();
+            ServiceLocator.Instance.Register<Services.AccountService>();
 
             ServiceLocator.Instance.RegisterViewModels();
 

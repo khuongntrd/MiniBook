@@ -46,12 +46,13 @@ namespace MiniBook
 			// Handle when your app starts
 		}
 
-		protected override void OnSleep ()
-		{
-			// Handle when your app sleeps
-		}
+        protected override void OnSleep()
+        {
+            // Handle when your app sleeps
+            MessagingCenter.Send<App>(this, "OnAppSleep");
+        }
 
-		protected override void OnResume ()
+        protected override void OnResume ()
 		{
 			// Handle when your app resumes
 		}

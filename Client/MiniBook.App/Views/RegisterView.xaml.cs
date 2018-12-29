@@ -15,6 +15,13 @@ namespace MiniBook.Views
 		public RegisterView ()
 		{
 			InitializeComponent ();
-		}
-	}
+        }
+
+        protected override void OnAppearing()
+        {
+            base.OnAppearing();
+
+            FirstnameEntry.Focus();
+        }
+    }
 }

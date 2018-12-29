@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
+using MiniBook.Mvvm.Commands;
 
 namespace MiniBook.ViewModels
 {
@@ -36,6 +37,13 @@ namespace MiniBook.ViewModels
         public virtual Task OnNavigationAsync(NavigationParameters parameters, NavigationType navigationType)
         {
             return Task.CompletedTask;
+        }
+
+        private DelegateCommand _backCommand;
+        public DelegateCommand BackCommand => _backCommand ?? (_backCommand = new DelegateCommand(Back));        
+        private async void Back()
+        {
+            await NavigationService.NavigateBackAsync();
         }
     }
 }

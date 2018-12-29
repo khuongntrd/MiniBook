@@ -1,8 +1,37 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <Application xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:android="clr-namespace:Xamarin.Forms.PlatformConfiguration.AndroidSpecific;assembly=Xamarin.Forms.Core"
+             xmlns:controls="clr-namespace:MiniBook.Controls;assembly=MiniBook.App"
+             android:Application.WindowSoftInputModeAdjust="Resize"
              x:Class="MiniBook.App">
-	<Application.Resources>
-    
-	</Application.Resources>
+    <Application.Resources>
+        <ResourceDictionary>
+            <Color x:Key="PrimaryColor">#ff0266</Color>
+            <Color x:Key="DarkColor">#9b003d</Color>
+            <Color x:Key="DarkTextColor">#ffffff</Color>
+
+            <Style x:Key="DarkButtonStyle"
+                   TargetType="Button">
+                <Setter Property="HeightRequest"
+                        Value="40" />
+                <Setter Property="CornerRadius"
+                        Value="5" />
+                <Setter Property="TextColor"
+                        Value="{StaticResource DarkTextColor}" />
+                <Setter Property="BackgroundColor"
+                        Value="{StaticResource DarkColor}" />
+            </Style>
+
+            <Style x:Key="DarkEntryStyle"
+                   TargetType="controls:CustomEntry">
+                <Setter Property="FontSize"
+                        Value="Small" />
+                <Setter Property="BackgroundColor"
+                        Value="White" />
+                <Setter Property="HeightRequest"
+                        Value="{OnPlatform Android=-1, iOS=36}" />
+            </Style>
+        </ResourceDictionary>
+    </Application.Resources>
 </Application>

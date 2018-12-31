@@ -29,8 +29,7 @@
                         Value="Small" />
                 <Setter Property="BackgroundColor"
                         Value="White" />
-                <Setter Property="HeightRequest"
-                        Value="{OnPlatform Android=-1, iOS=36}" />
+              
             </Style>
         </ResourceDictionary>
     </Application.Resources>

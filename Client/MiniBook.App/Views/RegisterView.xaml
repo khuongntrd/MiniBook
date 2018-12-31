@@ -11,7 +11,10 @@
     <ContentPage.Resources>
         <ResourceDictionary>
             <Style TargetType="controls:CustomEntry"
-                   BasedOn="{StaticResource DarkEntryStyle}" />
+                   BasedOn="{StaticResource DarkEntryStyle}">
+                <Setter Property="HeightRequest"
+                        Value="{OnPlatform Android=-1, iOS=36}" />
+            </Style>
         </ResourceDictionary>
     </ContentPage.Resources>
     <ScrollView Padding="{OnPlatform Android='0,50', iOS='0'}">

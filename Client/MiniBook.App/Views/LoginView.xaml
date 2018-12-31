@@ -11,7 +11,10 @@
     <ContentPage.Resources>
         <ResourceDictionary>
             <Style TargetType="controls:CustomEntry"
-                   BasedOn="{StaticResource DarkEntryStyle}"/>
+                   BasedOn="{StaticResource DarkEntryStyle}">
+                <Setter Property="HeightRequest"
+                        Value="{OnPlatform Android=-1, iOS=36}" />
+            </Style>
         </ResourceDictionary>
     </ContentPage.Resources>
     <StackLayout Margin="40,50"
@@ -26,12 +29,12 @@
                CornerRadius="5">
             <controls:CustomEntry Placeholder="email"
                                   ReturnType="Next"
-                                  Keyboard="Email"/>
+                                  Keyboard="Email" />
         </Frame>
         <Frame Padding="10,0"
                CornerRadius="5">
             <controls:CustomEntry Placeholder="password"
-                                  IsPassword="True"/>
+                                  IsPassword="True" />
         </Frame>
         <Button Text="Log In"
                 Padding="10,0"

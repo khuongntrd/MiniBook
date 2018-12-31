@@ -5,7 +5,7 @@ using System.Linq;
 using Foundation;
 using UIKit;
 
-namespace MiniBook.App.iOS
+namespace MiniBook.iOS
 {
     public class Application
     {

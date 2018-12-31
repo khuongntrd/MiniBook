@@ -120,4 +120,13 @@
   <data name="REGISTER_DUPLICATE_USER_NAME" xml:space="preserve">
     <value>Your username is in used</value>
   </data>
+  <data name="REGISTER_REQUIRED_EMAIL" xml:space="preserve">
+    <value>You must enter valid email address to register</value>
+  </data>
+  <data name="REGISTER_REQUIRED_FIRST_NAME" xml:space="preserve">
+    <value>You must enter your firstname</value>
+  </data>
+  <data name="REGISTER_REQUIRED_LAST_NAME" xml:space="preserve">
+    <value>You must enter your lastname</value>
+  </data>
 </root>

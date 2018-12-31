@@ -1,0 +1,90 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:controls="clr-namespace:MiniBook.Controls"
+             xmlns:behaviors="clr-namespace:MiniBook.Controls.Behaviors"
+             xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
+             ios:Page.UseSafeArea="true"
+             BackgroundColor="{StaticResource PrimaryColor}"
+             NavigationPage.HasNavigationBar="False"
+             x:Class="MiniBook.Views.RegisterView">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Style TargetType="controls:CustomEntry"
+                   BasedOn="{StaticResource DarkEntryStyle}">
+                <Setter Property="HeightRequest"
+                        Value="{OnPlatform Android=-1, iOS=36}" />
+            </Style>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <ScrollView Padding="{OnPlatform Android='0,50', iOS='0'}">
+        <ScrollView.Behaviors>
+            <behaviors:AutoscrollBehavior />
+        </ScrollView.Behaviors>
+        <StackLayout  Margin="40,0"
+                      Spacing="10">
+            <Label Text="minibook"
+                   FontAttributes="Bold"
+                   FontSize="46"
+                   TextColor="White"
+                   Margin="{OnPlatform Android='0,0,0,20', iOS='0,50,0,20'}"
+                   HorizontalTextAlignment="Center" />
+            <Frame Padding="10,0"
+                   CornerRadius="5">
+                <controls:CustomEntry x:Name="FirstnameEntry"
+                                      Placeholder="first name"
+                                      ReturnType="Next"
+                                      Text="{Binding User.Firstname}">
+                    <Entry.Keyboard>
+                        <Keyboard x:FactoryMethod="Create">
+                            <x:Arguments>
+                                <KeyboardFlags>CapitalizeWord</KeyboardFlags>
+                            </x:Arguments>
+                        </Keyboard>
+                    </Entry.Keyboard>
+                </controls:CustomEntry>
+            </Frame>
+            <Frame Padding="10,0"
+                   CornerRadius="5">
+                <controls:CustomEntry Placeholder="last name"
+                                      ReturnType="Next"
+                                      Text="{Binding User.Lastname}">
+                    <Entry.Keyboard>
+                        <Keyboard x:FactoryMethod="Create">
+                            <x:Arguments>
+                                <KeyboardFlags>CapitalizeWord</KeyboardFlags>
+                            </x:Arguments>
+                        </Keyboard>
+                    </Entry.Keyboard>
+                </controls:CustomEntry>
+            </Frame>
+            <Frame Padding="10,0"
+                   CornerRadius="5">
+                <controls:CustomEntry Placeholder="email"
+                                      Keyboard="Email"
+                                      ReturnType="Next"
+                                      Text="{Binding User.Email}" />
+            </Frame>
+            <Frame Padding="10,0"
+                   CornerRadius="5">
+                <controls:CustomEntry Placeholder="password"
+                                      IsPassword="True"
+                                      Text="{Binding Password}" />
+            </Frame>
+            <Button Text="Sign Up"
+                    Command="{Binding RegisterCommand}"
+                    Style="{StaticResource DarkButtonStyle}" />
+            <Label Text="already have an account?"
+                   Opacity="0.8"
+                   Margin="0,0,0,20"
+                   VerticalOptions="End"
+                   FontSize="Small"
+                   HorizontalTextAlignment="Center"
+                   TextColor="{StaticResource DarkTextColor}">
+                <Label.GestureRecognizers>
+                    <TapGestureRecognizer  Command="{Binding BackCommand}" />
+                </Label.GestureRecognizers>
+            </Label>
+        </StackLayout>
+    </ScrollView>
+</ContentPage>

@@ -79,7 +79,7 @@ namespace MiniBook.Identity
 
             app.UseIdentityServer();
 
-            app.UseMvc();
+            app.UseMvcWithDefaultRoute();
         }
     }
 }

@@ -19,6 +19,9 @@ namespace MiniBook.Resource
 
         public static IWebHost BuildWebHost(string[] args) =>
             WebHost.CreateDefaultBuilder(args)
+#if DEBUG
+                .UseUrls("http://*:55458")
+#endif
                 .UseStartup<Startup>()
                 .Build();
     }

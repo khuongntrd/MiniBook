@@ -18,6 +18,15 @@ namespace MiniBook.Resource
 
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddAuthorization(options => {
+                options.AddPolicy("Api1Policy", builder => {
+                    builder.RequireClaim("scope", "api1");
+                });
+                options.AddPolicy("Api2Policy", builder => {
+                    builder.RequireClaim("scope", "api2");
+                });
+            });
+
             services.AddAuthentication("Bearer")
                 .AddIdentityServerAuthentication(options =>
                 {

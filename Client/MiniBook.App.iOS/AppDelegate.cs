@@ -5,7 +5,7 @@ using System.Linq;
 using Foundation;
 using UIKit;
 
-namespace MiniBook.App.iOS
+namespace MiniBook.iOS
 {
     // The UIApplicationDelegate for the application. This class is responsible for launching the 
     // User Interface of the application, as well as listening (and optionally responding) to 
@@ -22,10 +22,18 @@ namespace MiniBook.App.iOS
         //
         public override bool FinishedLaunching(UIApplication app, NSDictionary options)
         {
+            InitControls();
+
             global::Xamarin.Forms.Forms.Init();
+
             LoadApplication(new App());
 
             return base.FinishedLaunching(app, options);
+        }
+
+        private void InitControls()
+        {
+            FFImageLoading.Forms.Platform.CachedImageRenderer.Init();
         }
     }
 }

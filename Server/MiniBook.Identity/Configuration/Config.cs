@@ -20,8 +20,7 @@ namespace MiniBook.Identity.Configuration
         {
             return new List<ApiResource>
             {
-                new ApiResource("api1", "My API"),
-                new ApiResource("api2", "My API")
+                new ApiResource("api", "Main API Resource")
             };
         }
 
@@ -38,7 +37,7 @@ namespace MiniBook.Identity.Configuration
                     {
                         new Secret("secret".Sha256())
                     },
-                    AllowedScopes = { "api1", "openid", "profile", "email" }
+                    AllowedScopes = { "api", "openid", "profile", "email" }
                 },
             };
         }

@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using MiniBook.Resource.Models;
+﻿using MiniBook.Resource.Models;
 using MongoDB.Driver;
 
 namespace MiniBook.Resource.Data
@@ -14,12 +10,11 @@ namespace MiniBook.Resource.Data
 
         public DataContext(string connectionString, string dbName)
         {
-            MongoClient= new MongoClient(connectionString);
+            MongoClient = new MongoClient(connectionString);
 
             Database = MongoClient.GetDatabase(dbName);
         }
 
         public IMongoCollection<Post> Posts => Database.GetCollection<Post>("posts");
-
     }
 }

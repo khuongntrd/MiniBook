@@ -34,8 +34,6 @@ namespace MiniBook.Identity.Controllers
             if (string.IsNullOrEmpty(model.Lastname))
                 return this.ErrorResult(ErrorCode.REGISTER_REQUIRED_LAST_NAME);
 
-
-
             var user = new User() { Email = model.Email, UserName = model.Email };
 
             user.Claims.Add(new IdentityUserClaim<string>() {

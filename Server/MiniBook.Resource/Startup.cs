@@ -3,7 +3,6 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using MiniBook.Resource.Data;
 
 namespace MiniBook.Resource
 {
@@ -29,9 +28,6 @@ namespace MiniBook.Resource
                     options.Authority = Configuration["Identity:Authority"];
                     options.RequireHttpsMetadata = false;
                 });
-
-            services.AddScoped(provider => 
-                new DataContext(Configuration["Data:ConnectionString"], Configuration["Data:DbName"]));
 
             services.AddMvc();
         }

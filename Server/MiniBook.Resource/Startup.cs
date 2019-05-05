@@ -1,9 +1,10 @@
-﻿using IdentityServer4.AccessTokenValidation;
-using Microsoft.AspNetCore.Builder;
+﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using MiniBook.Resource.Data;
+using MiniBook.Data;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
 
 namespace MiniBook.Resource
 {
@@ -18,10 +19,7 @@ namespace MiniBook.Resource
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddAuthorization(options =>
-            {
-                
-            });
+            services.AddAuthorization();
 
             services.AddAuthentication("Bearer")
                 .AddIdentityServerAuthentication(options =>
@@ -30,10 +28,14 @@ namespace MiniBook.Resource
                     options.RequireHttpsMetadata = false;
                 });
 
-            services.AddScoped(provider => 
-                new DataContext(Configuration["Data:ConnectionString"], Configuration["Data:DbName"]));
+            services.AddResourceData(Configuration["Data:ConnectionString"],
+                Configuration["Data:DbName"]);
 
-            services.AddMvc();
+            services.AddMvc().AddJsonOptions(x =>
+            {
+                x.SerializerSettings.DefaultValueHandling = DefaultValueHandling.Ignore;
+                x.SerializerSettings.NullValueHandling = NullValueHandling.Ignore;
+            });
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)

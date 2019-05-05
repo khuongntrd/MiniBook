@@ -1,14 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.Linq;
-using System.Threading.Tasks;
-using IdentityModel;
+﻿using IdentityModel;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using MiniBook.Data.Repositories;
 using MiniBook.Identity.Models;
 using MiniBook.Identity.ViewModels;
-using MiniBook.Strings;
+using System.Linq;
+using System.Net.Http;
+using System.Threading.Tasks;
+using Newtonsoft.Json.Linq;
 
 namespace MiniBook.Identity.Controllers
 {
@@ -17,9 +16,45 @@ namespace MiniBook.Identity.Controllers
     {
         UserManager<User> UserManager { get; }
 
-        public AccountController(UserManager<User> userManager)
+        private readonly UserRepository _userRepository;
+
+        public AccountController(UserManager<User> userManager, UserRepository userRepository)
         {
             UserManager = userManager;
+            _userRepository = userRepository;
+        }
+
+        [HttpGet("seed")]
+        public async Task<IActionResult> Seed()
+        {
+            string UpFirst(string s)
+            {
+                return char.ToUpper(s[0]) + s.Substring(1);
+            }
+
+            using (var client = new HttpClient())
+            {
+                var json = await client.GetStringAsync(
+                     "https://randomuser.me/api/?results=999&nat=gb,us&inc=gender,name,email,picture");
+
+                foreach (var doc in (JArray)JObject.Parse(json)["results"])
+                {
+                    var vm = new RegisterViewModel()
+                    {
+                        Gender = UpFirst(doc.Value<string>("gender")),
+                        Firstname = UpFirst(doc.SelectToken("name.first").Value<string>()),
+                        Lastname = UpFirst(doc.SelectToken("name.last").Value<string>()),
+                        Email = doc.Value<string>("email"),
+                        Image = doc.SelectToken("picture.large").Value<string>(),
+                        Password = "Abc@123",
+                        BirthDate = new System.DateTime(1990, 1, 1)
+                    };
+
+                    await Register(vm);
+                }
+            }
+
+            return this.OkResult();
         }
 
         [HttpPost]
@@ -36,10 +71,12 @@ namespace MiniBook.Identity.Controllers
 
             var user = new User() { Email = model.Email, UserName = model.Email };
 
-            user.Claims.Add(new IdentityUserClaim<string>() {
+            user.Claims.Add(new IdentityUserClaim<string>()
+            {
                 ClaimType = JwtClaimTypes.GivenName,
                 ClaimValue = model.Firstname
             });
+
             user.Claims.Add(new IdentityUserClaim<string>()
             {
                 ClaimType = JwtClaimTypes.FamilyName,
@@ -48,19 +85,26 @@ namespace MiniBook.Identity.Controllers
             user.Claims.Add(new IdentityUserClaim<string>()
             {
                 ClaimType = JwtClaimTypes.Gender,
-                ClaimValue = model.Gender.ToString()
+                ClaimValue = model.Gender
             });
             user.Claims.Add(new IdentityUserClaim<string>()
             {
                 ClaimType = JwtClaimTypes.BirthDate,
-                ClaimValue = model.BirthDate.ToString("yyyy-MM-dd")
+                ClaimValue = model.BirthDate.Date.ToString("yyyy-MM-dd")
             });
-
+            user.Claims.Add(new IdentityUserClaim<string>()
+            {
+                ClaimType = JwtClaimTypes.Picture,
+                ClaimValue = model.Image
+            });
             var result = await UserManager.CreateAsync(user, model.Password);
 
             if (result.Succeeded)
             {
+                await _userRepository.CreateAsync(user.Id, model.Firstname + " " + model.Lastname, model.Gender, model.Image);
+
                 return this.OkResult();
+
             }
             else
             {
@@ -70,6 +114,8 @@ namespace MiniBook.Identity.Controllers
                 }
                 return this.ErrorResult(ErrorCode.BAD_REQUEST);
             }
+
+
         }
     }
 }

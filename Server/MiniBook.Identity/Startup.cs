@@ -10,6 +10,8 @@ using MiniBook.Identity.Data;
 using MiniBook.Identity.Models;
 using System.Collections.Generic;
 using System.Globalization;
+using MiniBook.Data;
+using MiniBook.Data.Context;
 
 namespace MiniBook.Identity
 {
@@ -26,6 +28,9 @@ namespace MiniBook.Identity
         public void ConfigureServices(IServiceCollection services)
         {
             var connectionString = Configuration.GetConnectionString("DefaultConnection");
+
+            services.AddResourceData(Configuration["Data:ConnectionString"],
+                Configuration["Data:DbName"]);
 
             services.AddDbContext<MinibookDbContext>(
                 options => options.UseSqlServer(connectionString));

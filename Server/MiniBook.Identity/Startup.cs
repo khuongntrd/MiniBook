@@ -10,6 +10,7 @@ using MiniBook.Identity.Data;
 using MiniBook.Identity.Models;
 using System.Collections.Generic;
 using System.Globalization;
+using MiniBook.Data;
 
 namespace MiniBook.Identity
 {
@@ -56,6 +57,8 @@ namespace MiniBook.Identity
                 .AddInMemoryApiResources(Config.GetApiResources())
                 .AddInMemoryClients(Config.GetClients())
                 .AddAspNetIdentity<User>();
+
+            services.AddResourceData(Configuration["Data:ConnectionString"], Configuration["Data:DbName"]);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

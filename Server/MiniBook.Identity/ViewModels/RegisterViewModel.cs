@@ -10,8 +10,9 @@ namespace MiniBook.Identity.ViewModels
         public string Firstname { get; set; }
         public string Lastname { get; set; }
         public DateTime BirthDate { get; set; }
-        public int Gender { get; set; }
+        public string Gender { get; set; }
         public string Email { get; set; }
         public string Password { get; set; }
+        public string Image { get; set; }
     }
 }

@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using MiniBook.Data.Entities;
+﻿using MiniBook.Data.Entities;
 using MongoDB.Driver;
 
 namespace MiniBook.Data.Context

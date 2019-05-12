@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
@@ -6,37 +6,12 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Acr.UserDialogs" Version="7.0.1" />
-    <PackageReference Include="Autofac" Version="4.8.1" />
-    <PackageReference Include="Newtonsoft.Json" Version="9.0.1" />
+    <PackageReference Include="Acr.UserDialogs" Version="7.0.4" />
+    <PackageReference Include="Autofac" Version="4.9.2" />
+    <PackageReference Include="Newtonsoft.Json" Version="12.0.2" />
     <PackageReference Include="Plugin.Permissions" Version="3.0.0.12" />
-    <PackageReference Include="Xamarin.FFImageLoading.Forms" Version="2.4.3.840" />
-    <PackageReference Include="Xamarin.FFImageLoading.Transformations" Version="2.4.3.840" />
-    <PackageReference Include="Xamarin.Forms" Version="3.2.0.839982" />
-    <PackageReference Include="Xamarin.LiveReload" Version="0.3.27" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <EmbeddedResource Update="Views\DashboardView.xaml">
-      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-    </EmbeddedResource>
-    <EmbeddedResource Update="Views\LoginView.xaml">
-      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-    </EmbeddedResource>
-    <EmbeddedResource Update="Views\RegisterView.xaml">
-      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-    </EmbeddedResource>
-    <EmbeddedResource Update="Views\Tabs\HomeView.xaml">
-      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-    </EmbeddedResource>
-    <EmbeddedResource Update="Views\Tabs\InboxView.xaml">
-      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-    </EmbeddedResource>
-    <EmbeddedResource Update="Views\Tabs\MoreView.xaml">
-      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-    </EmbeddedResource>
-    <EmbeddedResource Update="Views\Tabs\NotificationsView.xaml">
-      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-    </EmbeddedResource>
+    <PackageReference Include="Xamarin.FFImageLoading.Forms" Version="2.4.9.961" />
+    <PackageReference Include="Xamarin.FFImageLoading.Transformations" Version="2.4.9.961" />
+    <PackageReference Include="Xamarin.Forms" Version="3.6.0.344457" />
   </ItemGroup>
 </Project>

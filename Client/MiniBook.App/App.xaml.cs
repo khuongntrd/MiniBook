@@ -11,10 +11,6 @@ namespace MiniBook
 		{
 			InitializeComponent();
 
-#if DEBUG
-            LiveReload.Init();
-#endif
-
             BuildDependencies();
 
             InitNavigation();

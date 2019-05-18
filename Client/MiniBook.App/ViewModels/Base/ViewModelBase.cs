@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 using MiniBook.Mvvm.Commands;
+using MiniBook.Services.Dialog;
 
 namespace MiniBook.ViewModels
 {
@@ -13,10 +14,12 @@ namespace MiniBook.ViewModels
         private bool _isBusy;
 
         protected INavigationService NavigationService { get; }
+        protected IDialogService DialogService { get; }
 
         public ViewModelBase()
         {
             NavigationService = ServiceLocator.Instance.Resolve<INavigationService>();
+            DialogService = ServiceLocator.Instance.Resolve<IDialogService>();
         }
 
         public string Title

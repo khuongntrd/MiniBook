@@ -25,7 +25,11 @@ namespace MiniBook.Services.Navigation
         {
             var view = FindViewByViewModel(viewModelType);
 
-            if (view is LoginView)
+            if (view is SplashView)
+            {
+                CurrentApplication.MainPage = new CustomNavigationPage(view);
+            }
+            else if (view is LoginView)
             {
                 CurrentApplication.MainPage = new CustomNavigationPage(view);
             }

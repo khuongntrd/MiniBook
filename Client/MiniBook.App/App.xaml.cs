@@ -19,7 +19,7 @@ namespace MiniBook
         private void InitNavigation()
         {
             ServiceLocator.Instance.Resolve<Services.Navigation.INavigationService>()
-                .NavigateToAsync<ViewModels.LoginViewModel>();
+                .NavigateToAsync<ViewModels.SplashViewModel>();
         }
 
         private void BuildDependencies()
@@ -28,6 +28,7 @@ namespace MiniBook
                 return;
 
             // Register dependencies
+            ServiceLocator.Instance.RegisterInstance<Services.Dialog.IDialogService, Services.Dialog.DialogService>();
             ServiceLocator.Instance.RegisterInstance<Services.Navigation.INavigationService, Services.Navigation.NavigationService>();
             ServiceLocator.Instance.Register<Services.HttpService>();
             ServiceLocator.Instance.Register<Services.AccountService>();

@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Threading.Tasks;
-using MiniBook.Services;
+﻿using MiniBook.Services;
 using MiniBook.Services.Navigation;
+using System.Threading.Tasks;
 
 namespace MiniBook.ViewModels
 {

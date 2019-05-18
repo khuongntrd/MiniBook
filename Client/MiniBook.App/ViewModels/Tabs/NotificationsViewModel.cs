@@ -8,7 +8,7 @@ namespace MiniBook.ViewModels.Tabs
     {
         public NotificationsViewModel()
         {
-            Title = "Notifications View";
+            Title = "Notifications";
         }
     }
 }

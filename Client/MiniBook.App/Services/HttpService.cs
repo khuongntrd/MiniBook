@@ -3,6 +3,7 @@ using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -13,8 +14,15 @@ namespace MiniBook.Services
         public async Task<T> SendAsync<T>(string url, HttpMethod method, HttpContent content = null)
         {
             var request = new HttpRequestMessage(method, url);
+
             if (content != null)
                 request.Content = content;
+
+            if (AppContext.Current.Token?.IsExpired() == false)
+            {
+                request.Headers.Authorization =
+                    new AuthenticationHeaderValue("Bearer", AppContext.Current.Token.AccessToken);
+            }
 
             using (var client = DefaultHttpClient())
             {
@@ -36,7 +44,7 @@ namespace MiniBook.Services
             return SendAsync<T>(url, HttpMethod.Post, content);
         }
 
-        internal Task<T> PostAsync<T>(string url, Dictionary<string,string> form)
+        internal Task<T> PostAsync<T>(string url, Dictionary<string, string> form)
         {
             var content = new FormUrlEncodedContent(form);
 
@@ -46,6 +54,11 @@ namespace MiniBook.Services
         private HttpClient DefaultHttpClient()
         {
             return new HttpClient();
+        }
+
+        public Task<T> GetAsync<T>(string url)
+        {
+            return SendAsync<T>(url, HttpMethod.Get);
         }
     }
 }

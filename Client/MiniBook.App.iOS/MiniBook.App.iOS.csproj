@@ -182,4 +182,29 @@
       <Name>MiniBook.App</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="..\Common\ic_tab_home.png">
+      <Link>Resources\ic_tab_home.png</Link>
+    </BundleResource>
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="..\Common\ic_tab_inbox.png">
+      <Link>Resources\ic_tab_inbox.png</Link>
+    </BundleResource>
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="..\Common\ic_tab_noti.png">
+      <Link>Resources\ic_tab_noti.png</Link>
+    </BundleResource>
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="..\Common\ic_tab_search.png">
+      <Link>Resources\ic_tab_search.png</Link>
+    </BundleResource>
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="..\Common\ic_user_default.png">
+      <Link>Resources\ic_user_default.png</Link>
+    </BundleResource>
+  </ItemGroup>
 </Project>

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using MiniBook.Models;
 
 namespace MiniBook.ViewModels
 {
@@ -8,7 +9,9 @@ namespace MiniBook.ViewModels
     {
         public DashboardViewModel()
         {
-            Title = "Dashboard View";
+            User = AppContext.Current.Profile;
         }
+
+        public User User { get; set; }
     }
 }

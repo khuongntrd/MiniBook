@@ -1,24 +1,24 @@
-﻿using MiniBook.Models;
-using Newtonsoft.Json;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using MiniBook.Models;
+using Newtonsoft.Json;
+using Xamarin.Essentials;
 
 namespace MiniBook.Services
 {
     public class AccountService
     {
-        HttpService HttpService { get; }
-
         public AccountService(HttpService httpService)
         {
             HttpService = httpService;
         }
+
         public async Task<bool> LoginAsync(string email, string password)
         {
             var url = Configuration.ID_HOST + "/connect/token";
 
-            var response = await HttpService.PostAsync<TokenResponse>(url, new Dictionary<string, string>()
+            var response = await HttpService.PostAsync<TokenResponse>(url, new Dictionary<string, string>
             {
                 {"client_id", "client"},
                 {"client_secret", "secret"},
@@ -28,7 +28,6 @@ namespace MiniBook.Services
             });
 
             if (!string.IsNullOrEmpty(response.Error))
-            {
                 switch (response.Error)
                 {
                     case "invalid_grant":
@@ -36,16 +35,17 @@ namespace MiniBook.Services
                     default:
                         return false;
                 }
-            }
 
             if (!string.IsNullOrEmpty(response.AccessToken))
             {
                 response.ExpiresAt = DateTime.UtcNow.AddSeconds(response.ExpiresIn);
 
-                await Xamarin.Essentials.SecureStorage.SetAsync("Token",
+                await SecureStorage.SetAsync("Token",
                     JsonConvert.SerializeObject(response, Formatting.None));
 
                 AppContext.Current.Token = response;
+
+                AppContext.Current.Profile = await GetProfileAsync();
 
                 return true;
             }
@@ -55,7 +55,7 @@ namespace MiniBook.Services
 
         public async Task<bool> RestoreAsync()
         {
-            var token = await Xamarin.Essentials.SecureStorage.GetAsync("Token");
+            var token = await SecureStorage.GetAsync("Token");
 
             if (token != null)
             {
@@ -70,11 +70,14 @@ namespace MiniBook.Services
                     return false;
                 }
 
+                AppContext.Current.Profile = await GetProfileAsync();
+
                 return true;
             }
 
             return false;
         }
+
         public Task<ApiResponse<object>> RegisterAsync(User user, string password)
         {
             var url = Configuration.ID_HOST + "/api/account";
@@ -89,5 +92,13 @@ namespace MiniBook.Services
                 Password = password
             });
         }
+
+        public Task<User> GetProfileAsync()
+        {
+            var url = Configuration.ID_HOST + "/connect/userinfo";
+            return HttpService.GetAsync<User>(url);
+        }
+
+        HttpService HttpService { get; }
     }
 }

@@ -8,7 +8,7 @@ namespace MiniBook.ViewModels.Tabs
     {
         public HomeViewModel()
         {
-            Title = "Home View";
+            Title = "Home";
         }
     }
 }

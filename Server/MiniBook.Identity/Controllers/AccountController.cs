@@ -96,6 +96,12 @@ namespace MiniBook.Identity.Controllers
                 ClaimType = JwtClaimTypes.BirthDate,
                 ClaimValue = model.BirthDate.ToString("yyyy-MM-dd")
             });
+            user.Claims.Add(new IdentityUserClaim<string>()
+            {
+                ClaimType = JwtClaimTypes.Picture,
+                ClaimValue = model.Image
+            });
+
 
             var result = await UserManager.CreateAsync(user, model.Password);
 

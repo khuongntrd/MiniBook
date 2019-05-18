@@ -4,11 +4,11 @@ using System.Text;
 
 namespace MiniBook.ViewModels.Tabs
 {
-    public class MoreViewModel:ViewModelBase
+    public class SearchViewModel : ViewModelBase
     {
-        public MoreViewModel()
+        public SearchViewModel()
         {
-            Title = "More View";
+            Title = "Search";
         }
     }
 }

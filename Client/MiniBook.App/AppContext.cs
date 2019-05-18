@@ -10,5 +10,7 @@ namespace MiniBook
         public static AppContext Current { get; } = new AppContext();
 
         public TokenResponse Token { get; set; }
+
+        public User Profile { get; set; }
     }
 }

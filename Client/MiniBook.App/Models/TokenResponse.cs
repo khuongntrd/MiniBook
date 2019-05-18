@@ -23,7 +23,7 @@ namespace MiniBook.Models
 
         public bool IsExpired()
         {
-            return DateTime.UtcNow < ExpiresAt;
+            return DateTime.UtcNow > ExpiresAt;
         }
     }
 }

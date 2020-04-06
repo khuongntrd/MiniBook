@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿// Copyright © 25inc.asia. All rights reserved.
+
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
@@ -13,23 +11,23 @@ namespace MiniBook.Identity.Data
     {
         public MinibookDbContext(DbContextOptions<MinibookDbContext> options) : base(options)
         {
-
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
 
-            modelBuilder.Entity<User>(users =>
-            {
-                users.HasMany(x => x.Claims)
-                    .WithOne()
-                    .HasForeignKey(x => x.UserId)
-                    .IsRequired()
-                    .OnDelete(DeleteBehavior.Cascade);
+            modelBuilder.Entity<User>(
+                users =>
+                {
+                    users.HasMany(x => x.Claims)
+                        .WithOne()
+                        .HasForeignKey(x => x.UserId)
+                        .IsRequired()
+                        .OnDelete(DeleteBehavior.Cascade);
 
-                users.ToTable("Users").Property(p => p.Id).HasColumnName("UserId");
-            });
+                    users.ToTable("Users").Property(p => p.Id).HasColumnName("UserId");
+                });
 
             modelBuilder.Entity<IdentityUserRole<string>>().ToTable("UserRoles");
             modelBuilder.Entity<IdentityUserLogin<string>>().ToTable("UserLogins");

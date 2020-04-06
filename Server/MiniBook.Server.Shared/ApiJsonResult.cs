@@ -25,7 +25,7 @@ namespace MiniBook
             _statusCode = code;
         }
 
-        public override Task ExecuteResultAsync(ActionContext context)
+        public override async Task ExecuteResultAsync(ActionContext context)
         {
             var httpContext = context.HttpContext;
             var request = httpContext.Request;
@@ -35,10 +35,10 @@ namespace MiniBook
             response.StatusCode = (int)_statusCode;
 
             var writerFactory = httpContext.RequestServices.GetRequiredService<IHttpResponseStreamWriterFactory>();
-            var options = httpContext.RequestServices.GetRequiredService<IOptions<MvcJsonOptions>>().Value;
+            var options = httpContext.RequestServices.GetRequiredService<IOptions<MvcNewtonsoftJsonOptions>>().Value;
             var serializerSettings = options.SerializerSettings;
 
-            using (var writer = writerFactory.CreateWriter(response.Body, Encoding.UTF8))
+            await using (var writer = writerFactory.CreateWriter(response.Body, Encoding.UTF8))
             {
                 using (var jsonWriter = new JsonTextWriter(writer))
                 {
@@ -47,8 +47,6 @@ namespace MiniBook
                     jsonSerializer.Serialize(jsonWriter, _result);
                 }
             }
-
-            return Task.CompletedTask;
         }
     }
 }

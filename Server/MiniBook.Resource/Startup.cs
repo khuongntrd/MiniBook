@@ -1,9 +1,12 @@
-﻿using IdentityServer4.AccessTokenValidation;
+﻿// Copyright © 25inc.asia. All rights reserved.
+
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using MiniBook.Resource.Data;
+using Microsoft.Extensions.Hosting;
+using MiniBook.Data;
+using Newtonsoft.Json;
 
 namespace MiniBook.Resource
 {
@@ -16,31 +19,40 @@ namespace MiniBook.Resource
 
         public IConfiguration Configuration { get; }
 
-        public void ConfigureServices(IServiceCollection services)
-        {
-            services.AddAuthentication("Bearer")
-                .AddIdentityServerAuthentication(options =>
-                {
-                    options.Authority = Configuration["Identity:Authority"];
-                    options.RequireHttpsMetadata = false;
-                });
-
-            services.AddScoped(provider => 
-                new DataContext(Configuration["Data:ConnectionString"], Configuration["Data:DbName"]));
-
-            services.AddMvc();
-        }
-
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
-            {
                 app.UseDeveloperExceptionPage();
-            }
+
+            app.UseRouting();
 
             app.UseAuthentication();
 
-            app.UseMvc();
+            app.UseEndpoints(builder => builder.MapDefaultControllerRoute());
+        }
+
+        public void ConfigureServices(IServiceCollection services)
+        {
+            services.AddAuthorization();
+
+            services.AddAuthentication("Bearer")
+                .AddIdentityServerAuthentication(
+                    options =>
+                    {
+                        options.Authority = Configuration["Identity:Authority"];
+                        options.RequireHttpsMetadata = false;
+                    });
+
+            services.AddResourceData(
+                Configuration["Data:ConnectionString"],
+                Configuration["Data:DbName"]);
+
+            services.AddControllers().AddNewtonsoftJson(
+                options =>
+                {
+                    options.SerializerSettings.NullValueHandling = NullValueHandling.Ignore;
+                    options.SerializerSettings.Formatting = Formatting.Indented;
+                });
         }
     }
 }

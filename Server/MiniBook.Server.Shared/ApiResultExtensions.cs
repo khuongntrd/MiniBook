@@ -6,7 +6,6 @@ namespace MiniBook
 {
     public static class ApiResultExtensions
     {
-        
         public static IActionResult ErrorResult(this Controller controller, ErrorCode errorCode, HttpStatusCode statusCode)
         {
             return JsonResult(new ApiResponse<object>(

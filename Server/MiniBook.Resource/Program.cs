@@ -1,28 +1,26 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore;
+﻿// Copyright © 25inc.asia. All rights reserved.
+
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Hosting;
 
 namespace MiniBook.Resource
 {
     public class Program
     {
+        public static IHostBuilder CreateHostBuilder(string[] args) =>
+            Host.CreateDefaultBuilder(args).ConfigureWebHostDefaults(
+                builder =>
+                {
+                    builder
+#if DEBUG
+                        .UseUrls("http://*:55458/")
+#endif
+                        .UseStartup<Startup>();
+                });
+
         public static void Main(string[] args)
         {
-            BuildWebHost(args).Run();
+            CreateHostBuilder(args).Build().Run();
         }
-
-        public static IWebHost BuildWebHost(string[] args) =>
-            WebHost.CreateDefaultBuilder(args)
-#if DEBUG
-                .UseUrls("http://*:55458")
-#endif
-                .UseStartup<Startup>()
-                .Build();
     }
 }

@@ -10,6 +10,7 @@ using MiniBook.Identity.Data;
 using MiniBook.Identity.Models;
 using System.Collections.Generic;
 using System.Globalization;
+using Microsoft.Extensions.Hosting;
 using MiniBook.Data;
 using MiniBook.Data.Context;
 
@@ -48,11 +49,12 @@ namespace MiniBook.Identity
                 options.Password.RequireUppercase = false;
             });
 
-            services.AddMvc().AddJsonOptions(options =>
-            {
-                options.SerializerSettings.NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore;
-                options.SerializerSettings.Formatting = Newtonsoft.Json.Formatting.Indented;
-            });
+            services.AddControllers().AddNewtonsoftJson(
+                options =>
+                {
+                    options.SerializerSettings.NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore;
+                    options.SerializerSettings.Formatting = Newtonsoft.Json.Formatting.Indented;
+                });
 
             services.AddIdentityServer()
                 .AddDeveloperSigningCredential()
@@ -64,7 +66,7 @@ namespace MiniBook.Identity
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
             {
@@ -84,7 +86,9 @@ namespace MiniBook.Identity
 
             app.UseIdentityServer();
 
-            app.UseMvcWithDefaultRoute();
+            app.UseRouting();
+
+            app.UseEndpoints(builder => builder.MapDefaultControllerRoute());
         }
     }
 }

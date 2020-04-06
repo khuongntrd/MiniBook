@@ -1,60 +1,61 @@
-using System;
+// Copyright © 25inc.asia. All rights reserved.
+
+using MiniBook.Services;
+using MiniBook.Services.Navigation;
+using MiniBook.ViewModels;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
-[assembly: XamlCompilation (XamlCompilationOptions.Compile)]
+[assembly: XamlCompilation(XamlCompilationOptions.Compile)]
+
 namespace MiniBook
 {
-	public partial class App : Application
-	{
-		public App ()
-		{
-			InitializeComponent();
-
-#if DEBUG
-            LiveReload.Init();
-#endif
+    public partial class App : Application
+    {
+        public App()
+        {
+            InitializeComponent();
 
             BuildDependencies();
 
             InitNavigation();
         }
 
-        private void InitNavigation()
+        protected override void OnResume()
         {
-            ServiceLocator.Instance.Resolve<Services.Navigation.INavigationService>()
-                .NavigateToAsync<ViewModels.LoginViewModel>();
+            // Handle when your app resumes
         }
 
-        private void BuildDependencies()
+        protected override void OnSleep()
+        {
+            // Handle when your app sleeps
+            MessagingCenter.Send(this, "OnAppSleep");
+        }
+
+        protected override void OnStart()
+        {
+            // Handle when your app starts
+        }
+
+        void BuildDependencies()
         {
             if (ServiceLocator.Instance.Built)
                 return;
 
             // Register dependencies
-            ServiceLocator.Instance.RegisterInstance<Services.Navigation.INavigationService, Services.Navigation.NavigationService>();
-            ServiceLocator.Instance.Register<Services.HttpService>();
-            ServiceLocator.Instance.Register<Services.AccountService>();
+            ServiceLocator.Instance.RegisterInstance<INavigationService, NavigationService>();
+            ServiceLocator.Instance.Register<HttpService>();
+            ServiceLocator.Instance.Register<AccountService>();
 
             ServiceLocator.Instance.RegisterViewModels();
 
             ServiceLocator.Instance.Build();
         }
 
-        protected override void OnStart ()
-		{
-			// Handle when your app starts
-		}
-
-        protected override void OnSleep()
+        void InitNavigation()
         {
-            // Handle when your app sleeps
-            MessagingCenter.Send<App>(this, "OnAppSleep");
+            ServiceLocator.Instance.Resolve<INavigationService>()
+                .NavigateToAsync<LoginViewModel>();
         }
-
-        protected override void OnResume ()
-		{
-			// Handle when your app resumes
-		}
-	}
+    }
 }

@@ -1,13 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.Specialized;
-using System.Linq;
-using Android.Content;
+﻿using Android.Content;
 using Android.Support.Design.Internal;
 using Android.Support.Design.Widget;
 using Android.Support.V7.Widget;
 using Android.Views;
 using MiniBook.Droid.Renderers;
+using System;
+using System.Collections.Generic;
+using System.Collections.Specialized;
+using System.Linq;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.Android;
 using Xamarin.Forms.Platform.Android.AppCompat;
@@ -27,7 +27,7 @@ namespace MiniBook.Droid.Renderers
         BottomNavigationView _bottomNavigationView;
 
         protected override void OnElementChanged(ElementChangedEventArgs<Xamarin.Forms.TabbedPage> e)
-        {            
+        {
             base.OnElementChanged(e);
 
             if (e.OldElement != null)
@@ -120,7 +120,7 @@ namespace MiniBook.Droid.Renderers
 
                     var layoutParameters = (AWidget.FrameLayout.LayoutParams)icon.LayoutParameters;
                     layoutParameters.Gravity = GravityFlags.Center;
-                    item.SetShiftingMode(false);
+                    item.SetShifting(false);
                     item.SetChecked(item.ItemData.IsChecked);
                 }
 

@@ -1,5 +1,5 @@
-﻿using System.Collections.Generic;
-using MongoDB.Bson;
+﻿using MongoDB.Bson;
+using System.Collections.Generic;
 
 namespace MiniBook.Data.Entities
 {

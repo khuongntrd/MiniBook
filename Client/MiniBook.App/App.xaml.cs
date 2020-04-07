@@ -1,7 +1,3 @@
-// Copyright © 25inc.asia. All rights reserved.
-
-using MiniBook.Services;
-using MiniBook.Services.Navigation;
 using MiniBook.ViewModels;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
@@ -56,8 +52,8 @@ namespace MiniBook
 
         void InitNavigation()
         {
-            ServiceLocator.Instance.Resolve<INavigationService>()
-                .NavigateToAsync<LoginViewModel>();
+            ServiceLocator.Instance.Resolve<Services.Navigation.INavigationService>()
+                .NavigateToAsync<SplashViewModel>();
         }
     }
 }

@@ -1,4 +1,4 @@
-﻿// Copyright © 25inc.asia. All rights reserved.
+﻿
 
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;

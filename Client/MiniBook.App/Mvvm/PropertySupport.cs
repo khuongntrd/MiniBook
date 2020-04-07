@@ -27,7 +27,7 @@ namespace MiniBook.Mvvm
                 throw new ArgumentNullException(nameof(propertyExpression));
 
             return ExtractPropertyNameFromLambda(propertyExpression);
-       }
+        }
 
         /// <summary>
         /// Extracts the property name from a LambdaExpression.
@@ -56,7 +56,7 @@ namespace MiniBook.Mvvm
                 throw new ArgumentException(nameof(expression));
 
             return memberExpression.Member.Name;
-       }
+        }
 
-   }
+    }
 }

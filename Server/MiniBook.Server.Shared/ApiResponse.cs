@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace MiniBook
+﻿namespace MiniBook
 {
     public class ApiResponse<T>
     {

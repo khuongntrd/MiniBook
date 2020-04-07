@@ -1,10 +1,7 @@
-﻿using MiniBook.Services.Navigation;
-using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Threading.Tasks;
-using MiniBook.Mvvm.Commands;
+﻿using MiniBook.Mvvm.Commands;
 using MiniBook.Services.Dialog;
+using MiniBook.Services.Navigation;
+using System.Threading.Tasks;
 
 namespace MiniBook.ViewModels
 {
@@ -43,7 +40,7 @@ namespace MiniBook.ViewModels
         }
 
         private DelegateCommand _backCommand;
-        public DelegateCommand BackCommand => _backCommand ?? (_backCommand = new DelegateCommand(Back));        
+        public DelegateCommand BackCommand => _backCommand ?? (_backCommand = new DelegateCommand(Back));
         private async void Back()
         {
             await NavigationService.NavigateBackAsync();

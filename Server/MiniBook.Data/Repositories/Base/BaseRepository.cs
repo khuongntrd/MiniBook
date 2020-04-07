@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using MiniBook.Data.Context;
+﻿using MiniBook.Data.Context;
 
 namespace MiniBook.Data.Repositories.Base
 {

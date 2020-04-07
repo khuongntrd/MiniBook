@@ -1,6 +1,4 @@
-﻿// Copyright © 25inc.asia. All rights reserved.
-
-using Microsoft.AspNetCore.Hosting;
+﻿using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting;
 
 namespace MiniBook.Identity

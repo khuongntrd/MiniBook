@@ -1,4 +1,3 @@
-using System;
 using MiniBook.Data.Context;
 using MiniBook.Data.Repositories;
 using Xunit;

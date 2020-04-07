@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 
 namespace MiniBook.Services.Dialog
 {
-    internal class DialogService: IDialogService
+    internal class DialogService : IDialogService
     {
         public Task AlertAsync(string message, string title)
         {

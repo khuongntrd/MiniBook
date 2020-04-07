@@ -3,7 +3,7 @@ using Xamarin.Forms;
 
 namespace MiniBook.Controls.Behaviors
 {
-   
+
     public class AutoscrollBehavior : Behavior<ScrollView>
     {
         protected override void OnAttachedTo(ScrollView bindable)
@@ -22,16 +22,16 @@ namespace MiniBook.Controls.Behaviors
 
         public static readonly BindableProperty FormLayoutProperty =
             BindableProperty.Create(nameof(FormLayout), typeof(View), typeof(AutoscrollBehavior));
-        
+
         public View FormLayout
         {
             get => (View)GetValue(FormLayoutProperty);
             set => SetValue(FormLayoutProperty, value);
         }
 
-     
 
-        private  async void ScrollViewSizeChanged(object sender, System.EventArgs e)
+
+        private async void ScrollViewSizeChanged(object sender, System.EventArgs e)
         {
             var scrollView = sender as ScrollView;
             if (scrollView == null)
@@ -59,7 +59,7 @@ namespace MiniBook.Controls.Behaviors
                 }
             }
         }
-         double _lastHeight = 0;
-         double _defaultHeight = 0;
+        double _lastHeight = 0;
+        double _defaultHeight = 0;
     }
 }

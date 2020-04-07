@@ -17,7 +17,7 @@ namespace MiniBook
         public static IActionResult ErrorResult(this Controller controller, ErrorCode errorCode)
         {
             return JsonResult(new ApiResponse<object>(
-                (int)errorCode, 
+                (int)errorCode,
                 ErrorResources.ResourceManager.GetString(errorCode.ToString())),
                 HttpStatusCode.BadRequest);
         }

@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 
 namespace MiniBook.Data.Entities
 {
@@ -15,7 +13,7 @@ namespace MiniBook.Data.Entities
     {
         public Profile()
         {
-            
+
         }
         public Profile(string name, string gender, string image)
         {

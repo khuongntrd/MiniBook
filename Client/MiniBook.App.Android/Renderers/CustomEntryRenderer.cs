@@ -1,5 +1,4 @@
-﻿using System.ComponentModel;
-using Android.Content;
+﻿using Android.Content;
 using Android.Graphics.Drawables;
 using MiniBook.Controls;
 using MiniBook.Droid.Renderers;

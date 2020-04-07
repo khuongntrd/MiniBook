@@ -1,4 +1,3 @@
-using CoreGraphics;
 using MiniBook.Controls;
 using MiniBook.iOS.Renderers;
 using UIKit;

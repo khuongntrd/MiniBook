@@ -1,6 +1,6 @@
 ﻿namespace MiniBook.Data.Entities
 {
-    public class Friend: Profile
+    public class Friend : Profile
     {
     }
 }

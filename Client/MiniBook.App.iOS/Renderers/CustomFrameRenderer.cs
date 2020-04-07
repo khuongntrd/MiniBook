@@ -1,7 +1,7 @@
-using System;
-using System.ComponentModel;
 using CoreGraphics;
 using MiniBook.iOS.Renderers;
+using System;
+using System.ComponentModel;
 using UIKit;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.iOS;

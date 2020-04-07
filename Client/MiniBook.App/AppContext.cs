@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using MiniBook.Models;
+﻿using MiniBook.Models;
 
 namespace MiniBook
 {

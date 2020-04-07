@@ -1,6 +1,5 @@
 ﻿using MiniBook.ViewModels;
 using System;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace MiniBook.Services.Navigation

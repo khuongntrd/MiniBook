@@ -6,7 +6,7 @@ using System.Windows.Input;
 
 namespace MiniBook.Mvvm.Commands
 {
-   
+
     public class DelegateCommand<T> : DelegateCommandBase
     {
         /// <summary>
@@ -35,7 +35,7 @@ namespace MiniBook.Mvvm.Commands
         ///     <paramref name="canExecuteMethod" /> ar <see langword="null" />.
         /// </exception>
         public DelegateCommand(Action<T> executeMethod, Func<T, bool> canExecuteMethod)
-            : base(o => executeMethod((T) o), o => canExecuteMethod((T) o))
+            : base(o => executeMethod((T)o), o => canExecuteMethod((T)o))
         {
             if (executeMethod == null || canExecuteMethod == null)
                 throw new ArgumentNullException(nameof(executeMethod));
@@ -56,7 +56,7 @@ namespace MiniBook.Mvvm.Commands
         }
 
         protected DelegateCommand(Func<T, Task> executeMethod, Func<T, bool> canExecuteMethod)
-            : base(o => executeMethod((T) o), o => canExecuteMethod((T) o))
+            : base(o => executeMethod((T)o), o => canExecuteMethod((T)o))
         {
             if (executeMethod == null || canExecuteMethod == null)
                 throw new ArgumentNullException(nameof(executeMethod));

@@ -2,7 +2,7 @@
 {
     public enum NavigationType
     {
-        New, 
+        New,
         Back
     }
 }

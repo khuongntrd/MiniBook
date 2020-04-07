@@ -1,13 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Xamarin.Forms;
-using System.Diagnostics;
+﻿using MiniBook.Controls;
 using MiniBook.ViewModels;
-using System.Threading.Tasks;
 using MiniBook.Views;
-using MiniBook.Controls;
+using System;
+using System.Diagnostics;
 using System.Linq;
+using System.Threading.Tasks;
+using Xamarin.Forms;
 
 namespace MiniBook.Services.Navigation
 {
@@ -111,7 +109,7 @@ namespace MiniBook.Services.Navigation
                 var view = Activator.CreateInstance(viewType) as Page;
 
                 if (view != null)
-                {                   
+                {
                     view.BindingContext = ServiceLocator.Instance.Resolve(viewModelType);
                 }
 

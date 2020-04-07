@@ -5,14 +5,12 @@ using Microsoft.AspNetCore.Localization;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
+using MiniBook.Data;
 using MiniBook.Identity.Configuration;
 using MiniBook.Identity.Data;
 using MiniBook.Identity.Models;
-using System.Collections.Generic;
 using System.Globalization;
-using Microsoft.Extensions.Hosting;
-using MiniBook.Data;
-using MiniBook.Data.Context;
 
 namespace MiniBook.Identity
 {

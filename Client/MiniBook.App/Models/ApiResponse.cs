@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace MiniBook.Models
+﻿namespace MiniBook.Models
 {
     public class ApiResponse<T>
     {

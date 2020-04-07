@@ -1,5 +1,4 @@
 using MiniBook.Services;
-using System;
 using Xunit;
 
 namespace MiniBook.Test
@@ -26,7 +25,7 @@ namespace MiniBook.Test
         {
             var accountService = new AccountService(new HttpService());
 
-            var result = await accountService.LoginAsync("khuongntrd@outlook.com","abc!123");
+            var result = await accountService.LoginAsync("khuongntrd@outlook.com", "abc!123");
 
             Assert.True(result);
         }

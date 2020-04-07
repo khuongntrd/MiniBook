@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Text;
-using MongoDB.Bson.Serialization.Attributes;
+﻿using MongoDB.Bson.Serialization.Attributes;
 
 namespace MiniBook.Data.Entities.Base
 {

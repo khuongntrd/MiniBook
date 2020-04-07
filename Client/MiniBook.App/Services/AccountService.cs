@@ -1,8 +1,8 @@
-﻿using System;
+﻿using MiniBook.Models;
+using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using MiniBook.Models;
-using Newtonsoft.Json;
 using Xamarin.Essentials;
 
 namespace MiniBook.Services

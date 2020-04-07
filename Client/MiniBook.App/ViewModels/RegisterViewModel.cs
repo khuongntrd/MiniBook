@@ -1,9 +1,6 @@
 ﻿using MiniBook.Models;
 using MiniBook.Mvvm.Commands;
 using MiniBook.Services;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace MiniBook.ViewModels
 {
@@ -26,7 +23,9 @@ namespace MiniBook.ViewModels
 
         private async void Register()
         {
-            await AccountService.RegisterAsync(User, Password);
+            var result = await AccountService.RegisterAsync(User, Password);
+            if (result.Successful)
+                await NavigationService.NavigateBackAsync();
         }
 
         private bool CanRegister()

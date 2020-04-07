@@ -5,11 +5,11 @@ using Microsoft.Extensions.DependencyInjection;
 using MiniBook.Data.Repositories;
 using MiniBook.Identity.Models;
 using MiniBook.Identity.ViewModels;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 
 namespace MiniBook.Identity.Controllers
 {

@@ -8,8 +8,7 @@ namespace MiniBook.ViewModels.Tabs
     {
         public InboxViewModel()
         {
-            Title = "Inbox View";
-
+            Title = "Inbox";
         }
     }
 }

@@ -18,7 +18,7 @@
     },
     "MiniBook.Resource": {
       "commandName": "Project",
-      "launchBrowser": true,
+      "commandLineArgs": "--urls http://*:55458",
       "launchUrl": "api/values",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"

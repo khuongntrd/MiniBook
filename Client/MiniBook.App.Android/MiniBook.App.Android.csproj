@@ -75,6 +75,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="MainActivity.cs" />
+    <Compile Include="Renderers\CustomBottomTabbedPageRenderer.cs" />
     <Compile Include="Renderers\CustomButtonRenderer.cs" />
     <Compile Include="Renderers\CustomEntryRenderer.cs" />
     <Compile Include="Resources\Resource.Designer.cs" />
@@ -108,13 +109,40 @@
     <Folder Include="Resources\drawable-xhdpi\" />
     <Folder Include="Resources\drawable-xxhdpi\" />
     <Folder Include="Resources\drawable-xxxhdpi\" />
-    <Folder Include="Resources\drawable\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\MiniBook.App\MiniBook.App.csproj">
       <Project>{8E905EFB-1641-4223-9CFD-F1166F789F66}</Project>
       <Name>MiniBook.App</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\xml\auto_backup_rules.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="..\Common\ic_tab_home.png">
+      <Link>Resources\drawable\ic_tab_home.png</Link>
+    </AndroidResource>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="..\Common\ic_tab_inbox.png">
+      <Link>Resources\drawable\ic_tab_inbox.png</Link>
+    </AndroidResource>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="..\Common\ic_tab_noti.png">
+      <Link>Resources\drawable\ic_tab_noti.png</Link>
+    </AndroidResource>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="..\Common\ic_tab_search.png">
+      <Link>Resources\drawable\ic_tab_search.png</Link>
+    </AndroidResource>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="..\Common\ic_user_default.png">
+      <Link>Resources\drawable\ic_user_default.png</Link>
+    </AndroidResource>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
 </Project>

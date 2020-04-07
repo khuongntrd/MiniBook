@@ -3,20 +3,20 @@ using System.Linq;
 using System.Threading.Tasks;
 using MiniBook.Data.Context;
 using MiniBook.Data.Entities;
+using MiniBook.Data.Repositories.Base;
 using MongoDB.Bson;
 using MongoDB.Driver;
-using Bson = MongoDB.Bson.BsonDocument;
 
 namespace MiniBook.Data.Repositories
 {
-    public class FeedRepository
+    public class FeedRepository : BaseRepository
     {
-        const int PAGE_SIZE = 10;
-
-        public FeedRepository(ResourceDbContext context)
+        public FeedRepository(ResourceDbContext context) : base(context)
         {
-            Context = context;
+
         }
+
+        const int PAGE_SIZE = 2;
 
         public Task<List<Post>> GetNewsFeed(string userId, int page = 0)
         {
@@ -32,39 +32,24 @@ namespace MiniBook.Data.Repositories
         {
             PipelineDefinition<Feed, Feed> pipeline = new[]
             {
-                new Bson {{"$match", new Bson {{nameof(Feed.UserId), userId}}}},
-                new Bson {{"$unwind", "$Posts"}},
-                new Bson {{"$sort", new Bson {{"Posts.Meta.Updated", -1}}}},
-                new Bson {{"$skip", skip}},
-                new Bson {{"$limit", limit}},
-                new Bson {{"$group", new Bson {{"_id", BsonNull.Value}, {"Posts", new Bson("$push", "$Posts")}}}},
-                new Bson {{"$project", new Bson {{"_id", 0}, {"Posts", 1}}}}
+                new BsonDocument {{"$match", new BsonDocument {{nameof(Feed.UserId), userId}}}},
+                new BsonDocument {{"$unwind", "$Posts"}},
+                new BsonDocument {{"$sort", new BsonDocument {{"Posts.Meta.Created", -1}}}},
+                new BsonDocument {{"$skip", skip}},
+                new BsonDocument {{"$limit", limit}},
+                new BsonDocument {{"$group", new BsonDocument {{"_id", BsonNull.Value}, {"Posts", new BsonDocument("$push", "$Posts")}}}},
+                new BsonDocument {{"$project", new BsonDocument {{"_id", 0}, {"Posts", 1}}}}
             };
 
             return (await collection.AggregateAsync(pipeline)).FirstOrDefault().Posts;
         }
 
-        public async Task AppendFollowingPostAsync(string userId, string destId)
+        public async Task AppendPostAsync(Post post)
         {
-            var curror = Context.Posts.Find(x => x.By.Id == destId && x.Meta.Deleted == null)
-                .Sort(Builders<Post>.Sort.Descending(x => x.Meta.Created))
-                .ToCursor();
+            var wallDest = new List<string> { post.By.Id };
+            var newsDest = new List<string> { post.By.Id };
 
-            await curror.ForEachAsync(async post =>
-            {
-                var filter = Builders<Feed>.Filter;
-                var exits = await Context.News.CountDocumentsAsync(filter.And(filter.Eq(nameof(Feed.UserId), userId), filter.Eq($"{nameof(Feed.Posts)}._id", post.Id)));
-                if (exits == 0)
-                    await AppendPostAsync(Context.News, new List<string> { userId }, post);
-            });
-        }
-
-        public async Task AppendPostAsync(Owner owner, Post post)
-        {
-            var followers = await Context.Users.Find(x => x.Id == owner.Id).Project(x => x.Followers).ToListAsync();
-            var wallDest = new List<string> { owner.Id };
-            var newsDest = new List<string> { owner.Id };
-
+            var followers = await Context.Users.Find(x => x.Id == post.By.Id).Project(x => x.Followers).ToListAsync();
             if (followers.All(x => x.Any()))
                 newsDest.AddRange(followers.SelectMany(x => x.Keys));
 
@@ -72,26 +57,26 @@ namespace MiniBook.Data.Repositories
                 AppendPostAsync(Context.News, newsDest, post));
         }
 
+        public async Task<bool> AppendPostAsync(IMongoCollection<Feed> collection, List<string> destUsers, Post post)
+        {
+            var filter = Builders<Feed>.Filter.In(nameof(Feed.UserId), destUsers);
+            var update = Builders<Feed>.Update.Push(nameof(Feed.Posts), post);
+            var result = await collection.UpdateManyAsync(filter, update);
+            return result.ModifiedCount > 0;
+        }
+
         public async Task AppendCommentAsync(string postId, Comment comment)
         {
             await Task.WhenAll(
-                Context.Wall.UpdateOneAsync(
+                Context.Wall.UpdateManyAsync(
                     Builders<Feed>.Filter.Eq($"{nameof(Feed.Posts)}._id", ObjectId.Parse(postId)),
                     Builders<Feed>.Update.Push($"{nameof(Feed.Posts)}.$.{nameof(Post.Comments)}", comment)),
-                Context.News.UpdateOneAsync(
+                Context.News.UpdateManyAsync(
                     Builders<Feed>.Filter.Eq($"{nameof(Feed.Posts)}._id", ObjectId.Parse(postId)),
                     Builders<Feed>.Update.Push($"{nameof(Feed.Posts)}.$.{nameof(Post.Comments)}", comment))
             );
         }
 
-        async Task<bool> AppendPostAsync(IMongoCollection<Feed> collection, List<string> destUsers, Post post)
-        {
-            var filter = Builders<Feed>.Filter.In(nameof(Feed.UserId), destUsers);
-            var update = Builders<Feed>.Update.Push(nameof(Feed.Posts), post);
-            var result = await collection.UpdateManyAsync(filter, update, new UpdateOptions { IsUpsert = true });
-            return result.ModifiedCount > 0;
-        }
 
-        ResourceDbContext Context { get; }
     }
 }

@@ -9,13 +9,12 @@ namespace MiniBook.Data
 {
     public static class ServiceRegistration
     {
-        public static IServiceCollection AddResourceData(this IServiceCollection service, string connectionString, string dbName)
+        public static void AddResourceData(this IServiceCollection services, string connectionString, string dbName)
         {
-            service.AddSingleton(provider =>new ResourceDbContext(connectionString, dbName));
-
-            service.AddScoped<UserRepository>();
-
-            return service;
+            services.AddSingleton(s => new ResourceDbContext(connectionString, dbName));
+            services.AddScoped<UserRepository>();
+            services.AddScoped<PostRepository>();
+            services.AddScoped<FeedRepository>();
         }
     }
 }

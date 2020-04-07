@@ -1,13 +1,36 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <TabbedPage xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+            xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
             xmlns:tabs="clr-namespace:MiniBook.Views.Tabs"
+            xmlns:android="clr-namespace:Xamarin.Forms.PlatformConfiguration.AndroidSpecific;assembly=Xamarin.Forms.Core"
+            xmlns:forms="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+            xmlns:transformations="clr-namespace:FFImageLoading.Transformations;assembly=FFImageLoading.Transformations"
+            android:TabbedPage.ToolbarPlacement="Bottom"
+            BarBackgroundColor="White"
+            BarTextColor="Black"
             x:Class="MiniBook.Views.DashboardView"
-            Title="{Binding Title}">
+            x:Name="Root">
+    <NavigationPage.TitleView>
+        <StackLayout Orientation="Horizontal"
+                     HorizontalOptions="Start">
+            <forms:CachedImage Source="{Binding User.Picture}"
+                               WidthRequest="40"
+                               HeightRequest="40">
+                <forms:CachedImage.Transformations>
+                    <transformations:CircleTransformation />
+                </forms:CachedImage.Transformations>
+            </forms:CachedImage>
+            <Label Text="{Binding Source={x:Reference Root}, Path=CurrentPage.Title}"
+                   FontSize="Medium"
+                   FontAttributes="Bold"
+                   VerticalOptions="Center"
+                   Margin="10,0"/>
+        </StackLayout>
+    </NavigationPage.TitleView>
     <TabbedPage.Children>
-        <tabs:HomeView />
-        <tabs:NotificationsView />
-        <tabs:InboxView />
-        <tabs:MoreView />
+        <tabs:HomeView Icon="ic_tab_home" />
+        <tabs:SearchView Icon="ic_tab_search" />
+        <tabs:NotificationsView Icon="ic_tab_noti" />
+        <tabs:InboxView Icon="ic_tab_inbox" />
     </TabbedPage.Children>
 </TabbedPage>

@@ -13,7 +13,7 @@ namespace MiniBook.Data.Repositories
     {
         public PostRepository(ResourceDbContext context) : base(context)
         {
-            Context = context;
+
         }
 
         public Task CreateAsync(string userId, string text, params Photo[] photos)
@@ -45,7 +45,7 @@ namespace MiniBook.Data.Repositories
                 Type = PostType.Photo,
             };
 
-            return CreateAsync(owner, post);
+            return CreateAsync(post);
         }
 
         public async Task CreateAsync(Owner owner, string text)
@@ -57,14 +57,14 @@ namespace MiniBook.Data.Repositories
                 Type = PostType.Status
             };
 
-            await CreateAsync(owner, post);
+            await CreateAsync(post);
         }
 
-        async Task CreateAsync(Owner owner, Post post)
+        async Task CreateAsync(Post post)
         {
             await Context.Posts.InsertOneAsync(post);
 
-            await AppendPostAsync(owner, post);
+            await AppendPostAsync(post);
         }
 
         public Task CommentAsync(string userId, string postId, string text)
@@ -82,11 +82,11 @@ namespace MiniBook.Data.Repositories
         {
             var comment = new Comment { By = user, Text = text, Ts = DateTime.UtcNow };
 
-            await Context.Posts.UpdateOneAsync(Builders<Post>.Filter.Eq("_id", ObjectId.Parse(postId)), Builders<Post>.Update.Push(nameof(Post.Comments), comment));
+            await Context.Posts.UpdateOneAsync(
+                Builders<Post>.Filter.Eq("_id", ObjectId.Parse(postId)),
+                Builders<Post>.Update.Push(nameof(Post.Comments), comment));
 
             await AppendCommentAsync(postId, comment);
         }
-
-        ResourceDbContext Context { get; }
     }
 }

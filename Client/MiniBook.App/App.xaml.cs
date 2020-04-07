@@ -34,7 +34,8 @@ namespace MiniBook
 
         protected override void OnStart()
         {
-            // Handle when your app starts
+            ServiceLocator.Instance.Resolve<Services.Navigation.INavigationService>()
+                .NavigateToAsync<ViewModels.SplashViewModel>();
         }
 
         void BuildDependencies()
@@ -43,9 +44,10 @@ namespace MiniBook
                 return;
 
             // Register dependencies
-            ServiceLocator.Instance.RegisterInstance<INavigationService, NavigationService>();
-            ServiceLocator.Instance.Register<HttpService>();
-            ServiceLocator.Instance.Register<AccountService>();
+            ServiceLocator.Instance.RegisterInstance<Services.Dialog.IDialogService, Services.Dialog.DialogService>();
+            ServiceLocator.Instance.RegisterInstance<Services.Navigation.INavigationService, Services.Navigation.NavigationService>();
+            ServiceLocator.Instance.Register<Services.HttpService>();
+            ServiceLocator.Instance.Register<Services.AccountService>();
 
             ServiceLocator.Instance.RegisterViewModels();
 

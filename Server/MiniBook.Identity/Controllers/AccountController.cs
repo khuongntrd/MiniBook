@@ -1,12 +1,14 @@
 ﻿using IdentityModel;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.DependencyInjection;
 using MiniBook.Data.Repositories;
 using MiniBook.Identity.Models;
 using MiniBook.Identity.ViewModels;
 using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
 namespace MiniBook.Identity.Controllers
@@ -16,45 +18,48 @@ namespace MiniBook.Identity.Controllers
     {
         UserManager<User> UserManager { get; }
 
-        private readonly UserRepository _userRepository;
-
-        public AccountController(UserManager<User> userManager, UserRepository userRepository)
+        public AccountController(UserManager<User> userManager)
         {
             UserManager = userManager;
-            _userRepository = userRepository;
         }
 
-        [HttpGet("seed")]
-        public async Task<IActionResult> Seed()
+        [HttpGet("registerFake")]
+        public async Task<IActionResult> RegisterWithFakeData()
         {
-            string UpFirst(string s)
+            using (HttpClient client = new HttpClient())
             {
-                return char.ToUpper(s[0]) + s.Substring(1);
-            }
+                var response = await client.GetStringAsync("https://randomuser.me/api/?results=100&nat=gb,us&inc=gender,name,email,picture");
 
-            using (var client = new HttpClient())
-            {
-                var json = await client.GetStringAsync(
-                     "https://randomuser.me/api/?results=999&nat=gb,us&inc=gender,name,email,picture");
+                var results = JsonConvert.DeserializeObject<JObject>(response).Value<JArray>("results");
 
-                foreach (var doc in (JArray)JObject.Parse(json)["results"])
+                string UpFirst(string input)
                 {
-                    var vm = new RegisterViewModel()
+                    return char.ToUpper(input[0]) + input.Substring(1);
+                }
+
+                foreach (var randUser in results)
+                {
+                    var gender = UpFirst(randUser.Value<string>("gender"));
+                    var first = UpFirst(randUser.SelectToken("name.first").Value<string>());
+                    var last = UpFirst(randUser.SelectToken("name.last").Value<string>());
+                    var email = randUser.Value<string>("email");
+                    var picture = randUser.SelectToken("picture.large").Value<string>();
+
+                    var model = new RegisterViewModel()
                     {
-                        Gender = UpFirst(doc.Value<string>("gender")),
-                        Firstname = UpFirst(doc.SelectToken("name.first").Value<string>()),
-                        Lastname = UpFirst(doc.SelectToken("name.last").Value<string>()),
-                        Email = doc.Value<string>("email"),
-                        Image = doc.SelectToken("picture.large").Value<string>(),
-                        Password = "Abc@123",
-                        BirthDate = new System.DateTime(1990, 1, 1)
+                        Email = email,
+                        Firstname = first,
+                        Lastname = last,
+                        Gender = gender,
+                        Image = picture,
+                        Password = "abc!123"
                     };
 
-                    await Register(vm);
+                    await Register(model);
                 }
             }
 
-            return this.OkResult();
+            return this.Ok();
         }
 
         [HttpPost]
@@ -76,7 +81,6 @@ namespace MiniBook.Identity.Controllers
                 ClaimType = JwtClaimTypes.GivenName,
                 ClaimValue = model.Firstname
             });
-
             user.Claims.Add(new IdentityUserClaim<string>()
             {
                 ClaimType = JwtClaimTypes.FamilyName,
@@ -85,26 +89,28 @@ namespace MiniBook.Identity.Controllers
             user.Claims.Add(new IdentityUserClaim<string>()
             {
                 ClaimType = JwtClaimTypes.Gender,
-                ClaimValue = model.Gender
+                ClaimValue = model.Gender.ToString()
             });
             user.Claims.Add(new IdentityUserClaim<string>()
             {
                 ClaimType = JwtClaimTypes.BirthDate,
-                ClaimValue = model.BirthDate.Date.ToString("yyyy-MM-dd")
+                ClaimValue = model.BirthDate.ToString("yyyy-MM-dd")
             });
             user.Claims.Add(new IdentityUserClaim<string>()
             {
                 ClaimType = JwtClaimTypes.Picture,
                 ClaimValue = model.Image
             });
+
+
             var result = await UserManager.CreateAsync(user, model.Password);
 
             if (result.Succeeded)
             {
-                await _userRepository.CreateAsync(user.Id, model.Firstname + " " + model.Lastname, model.Gender, model.Image);
+                await HttpContext.RequestServices.GetRequiredService<UserRepository>()
+                    .CreateAsync(user.Id, model.Firstname + " " + model.Lastname, model.Gender, model.Image);
 
                 return this.OkResult();
-
             }
             else
             {
@@ -114,8 +120,6 @@ namespace MiniBook.Identity.Controllers
                 }
                 return this.ErrorResult(ErrorCode.BAD_REQUEST);
             }
-
-
         }
     }
 }

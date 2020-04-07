@@ -12,7 +12,7 @@
 
         public Owner()
         {
-            
+
         }
         public string Id { get; set; }
     }

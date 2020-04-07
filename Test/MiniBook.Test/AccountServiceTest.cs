@@ -21,5 +21,14 @@ namespace MiniBook.Test
 
             Assert.True(result.Successful);
         }
+        [Fact]
+        public async void Login()
+        {
+            var accountService = new AccountService(new HttpService());
+
+            var result = await accountService.LoginAsync("khuongntrd@outlook.com","abc!123");
+
+            Assert.True(result);
+        }
     }
 }

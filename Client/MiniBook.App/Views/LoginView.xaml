@@ -7,6 +7,7 @@
              ios:Page.UseSafeArea="true"
              BackgroundColor="{StaticResource PrimaryColor}"
              NavigationPage.HasNavigationBar="False"
+             IsBusy="{Binding IsBusy}"
              Title="{Binding Title}">
     <ContentPage.Resources>
         <ResourceDictionary>
@@ -27,19 +28,29 @@
                TextColor="{StaticResource DarkTextColor}" />
         <Frame Padding="10,0"
                CornerRadius="5">
-            <controls:CustomEntry Placeholder="email"
+            <controls:CustomEntry Text="{Binding Email}"
+                                  Placeholder="email"
                                   ReturnType="Next"
                                   Keyboard="Email" />
         </Frame>
         <Frame Padding="10,0"
                CornerRadius="5">
-            <controls:CustomEntry Placeholder="password"
+            <controls:CustomEntry Text="{Binding Password}" 
+                                  Placeholder="password"
                                   IsPassword="True" />
         </Frame>
         <Button Text="Log In"
                 Padding="10,0"
                 CornerRadius="5"
+                Command="{Binding LoginCommand}"
                 Style="{StaticResource DarkButtonStyle}" />
+        <ActivityIndicator IsRunning="{Binding IsBusy}"
+                           IsVisible="{Binding IsBusy}"
+                           WidthRequest="30"
+                           HeightRequest="30"
+                           HorizontalOptions="Center"
+                           Color="White"
+                           Margin="5"/>
         <Label Text="sign up for minibook"
                Opacity="0.8"
                VerticalOptions="End"
@@ -50,6 +61,5 @@
                 <TapGestureRecognizer  Command="{Binding RegisterCommand}" />
             </Label.GestureRecognizers>
         </Label>
-
     </StackLayout>
 </ContentPage>
